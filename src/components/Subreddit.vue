@@ -1,29 +1,41 @@
 <template>
-  <div>
-    <h4><a :href="item.url">{{ item.title }}</a></h4>
-    <p class="meta">
-      Published
-      <span class="meta-bit">{{ item.datePublished }}</span>
-      at
-      <span class="meta-bit">{{ domainOf(item.url) }}</span>
-    </p>
-    <p>{{ item.description }}</p>
+  <div class="media">
+    <div class="media-left">
+      <a :href="item.url">
+        <img class="media-object" :src="item.thumbnail" :alt="item.title">
+      </a>
+    </div>
+    <div class="media-body">
+      <p class="meta">
+        Published
+        <span class="meta-bit">{{ timeConverter(item.created) }}</span>
+        at
+        <span class="meta-bit">{{ item.domain }}</span>
+      </p>
+      <h4><a :href="item.url">{{ item.title }}</a></h4>
+      <p class="stats">
+        <i class="glyphicon glyphicon-thumbs-up"></i>
+        <span>{{item.score}}</span>
+        <i class="glyphicon glyphicon-comment"></i>
+        <span>{{item.num_comments}}</span>
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
-let parser = document.createElement('a')
+import timeConverter from '../utilities/time-converter'
 
 export default {
   name: 'Subreddit',
   props: ['item'],
   methods: {
-    domainOf: url => ((parser.href = url), parser.hostname.replace(/^www\./, ''))
+    timeConverter
   }
 }
 </script>
 
-<style scoped>
+<style>
   .meta {
     color: #777;
     font-size: .85em;
@@ -31,5 +43,13 @@ export default {
   .meta-bit {
     color: #333;
     font-weight: bold;
+  }
+  .stats {
+    color: #777;
+    font-size: .9em;
+  }
+  .stats span {
+    color: #333;
+    margin-right: 10px;
   }
 </style>

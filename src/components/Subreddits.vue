@@ -1,6 +1,6 @@
 <template>
   <div class="subreddit-list">
-    <Subreddit class="subreddit" v-for="tutorial in tutorials" :item="tutorial" :key="tutorial.title" />
+    <Subreddit class="subreddit" v-for="post in posts" :item="post.data" :key="post.id" />
   </div>
 </template>
 
@@ -10,25 +10,19 @@ import Subreddit from './Subreddit'
 export default {
   name: 'Subreddits',
   components: { Subreddit },
-  props: ['tutorials']
+  props: ['posts']
 }
 </script>
  
-<style scoped>
-  .subreddit-list {
+<style>
+  /* .subreddit-list {
     margin: 20px 0;
     display: flex;
     justify-content: space-between;
     flex-flow: wrap;
-  }
- 
+  } */
   .subreddit {
     padding: 20px;
   }
- 
-  @media only screen and (min-width: 600px) {
-    .subreddit {
-      width: 50%;
-    }
-  }
+
 </style>

@@ -39,7 +39,7 @@ export default {
     },
     countText: {
       type: String,
-      default: 'Показаны с {from} по {to} из {count}|{count} Reddit|1 Reddit'
+      default: 'Showing {from} to {to} of {count} posts|{count} posts|1 post'
     },
     currentPage: {
       type: Number,
