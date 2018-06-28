@@ -2,7 +2,7 @@
   <div class="media">
     <div class="media-left">
       <a :href="item.url">
-        <img class="media-object" :src="item.thumbnail" :alt="item.title">
+        <img class="media-object" :src="item.thumbnail">
       </a>
     </div>
     <div class="media-body">
@@ -30,7 +30,7 @@ export default {
   name: 'Subreddit',
   props: ['item'],
   methods: {
-    timeConverter
+    timeConverter  // Преобразовывает UNIX в читаемый формат даты
   }
 }
 </script>
