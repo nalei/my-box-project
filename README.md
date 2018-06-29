@@ -1,5 +1,7 @@
 # my-box-project
 
+> [Live Demo](http://my-box-project.com)
+
 > A Vue.js project
 
 ## Build Setup
