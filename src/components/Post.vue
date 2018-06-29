@@ -12,7 +12,7 @@
         at
         <span class="meta-bit">{{ item.domain }}</span>
       </p>
-      <h4><a :href="item.url">{{ item.title }}</a></h4>
+      <h4><a :href="item.url" target="_blank">{{ item.title }}</a></h4>
       <p class="stats">
         <i class="glyphicon glyphicon-thumbs-up"></i>
         <span>{{item.score}}</span>
@@ -27,7 +27,7 @@
 import timeConverter from '../utilities/time-converter'
 
 export default {
-  name: 'Subreddit',
+  name: 'Post',
   props: ['item'],
   methods: {
     timeConverter  // Преобразовывает UNIX в читаемый формат даты
