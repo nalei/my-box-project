@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import {api} from './api/create-api'
 import Postlist from './components/Postlist'
 import Pagination from './components/Pagination'
 import getArraySection from './utilities/get-array-section'
