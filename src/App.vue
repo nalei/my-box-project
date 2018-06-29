@@ -34,13 +34,7 @@ export default {
   methods: {
     ...mapActions({
       fetchItems: 'FETCH_ITEMS' // Запрос новостей Reddit
-    }),
-
-    // Получает топ 30 новостей Reddit, и записывает в posts
-    // subReddit == 'all'
-    getPosts (subReddit) {
-      this.fetchItems(subReddit)
-    }
+    })
   },
   computed: {
     ...mapGetters({
@@ -54,7 +48,9 @@ export default {
     }
   },
   created () {
-    this.getPosts(this.subReddit)
+    // Получает топ 30 новостей Reddit, и записывает в posts
+    // subReddit == 'all'
+    this.fetchItems(this.subReddit)
   }
 }
 </script>
