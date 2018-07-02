@@ -53,16 +53,16 @@ export default {
     width: 50%;
   }
   .navbar-nav > li > a {
-    padding-top: 10px;
-    padding-bottom: 9px;
+    padding-top: 10px !important;
+    padding-bottom: 9px !important;
   }
   @media (min-width: 768px) {
     .navbar-nav > li {
       width: auto;
     }
     .navbar-nav > li > a {
-      padding-top: 10px;
-      padding-bottom: 9px;
+      padding-top: 10px !important;
+      padding-bottom: 9px !important;
     }
   }
 </style>
