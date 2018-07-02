@@ -1,36 +1,31 @@
 <template>
   <div class="container">
-<!--
-    <fdraw-r class="bottom-span" :value="{ palette: 'wk' }"></fdraw-r>
-    <fdraw-r class="bottom-span"
-             :value="{ resolution: 20, palette: [{h:0,r:255,g:255,b:0},{h:1,r:0,g:0,b:0}] }">
-    </fdraw-r>
--->
     <div class="row">
-
-      <h4>Tools:</h4>
-      <div class="fpanel">
-        <input :value="params.width" @change="pushToImmutable('width', $event)" title="Width">
-        <span>&times;</span>
-        <input :value="params.height" @change="pushToImmutable('height', $event)" title="Height">
-        <span class="info"><b>{{ drawing }}</b></span>
-        <br/>
-        <input :value="params.resolution" @change="pushToImmutable('resolution', $event)" title="Resolution">
-        <select :value="selectedPalette" @change="selectPalette" title="Palette">
-          <option disabled value="custom">Select palette</option>
-          <option value="bw">b&amp;w</option>
-          <option value="wb">w&amp;b</option>
-          <option value="rb">rainbow</option>
-          <option value="wk">wiki</option>
-        </select>
-        <div class="info">x:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.x }}</div>
-        <div class="info">y:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.y}}</div>
-        <div class="info">zoom: {{ params.zoom }}</div>
+      <div class="col-md-6">
+        <h4>Color map:</h4>
+        <fdraw-rw v-model="params" @progress="progress" @stat="stat=$event"></fdraw-rw>
       </div>
-
-      <h4>Color map:</h4>
-      <fdraw-rw v-model="params" @progress="progress" @stat="stat=$event"></fdraw-rw>
-
+      <div class="col-md-6">
+        <h4>Tools:</h4>
+        <div class="thumbnail">
+          <input :value="params.width" @change="pushToImmutable('width', $event)" title="Width">
+          <span>&times;</span>
+          <input :value="params.height" @change="pushToImmutable('height', $event)" title="Height">
+          <span class="info"><b>{{ drawing }}</b></span>
+          <br/>
+          <input :value="params.resolution" @change="pushToImmutable('resolution', $event)" title="Resolution">
+          <select :value="selectedPalette" @change="selectPalette" title="Palette">
+            <option disabled value="custom">Select palette</option>
+            <option value="bw">b&amp;w</option>
+            <option value="wb">w&amp;b</option>
+            <option value="rb">rainbow</option>
+            <option value="wk">wiki</option>
+          </select>
+          <div class="info">x:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.x }}</div>
+          <div class="info">y:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.y}}</div>
+          <div class="info">zoom: {{ params.zoom }}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +38,7 @@
     components: { FdrawR, FdrawRw },
     data: () => ({
       params: {
-        width: 750,
+        width: 340,
         height: 440,
         x: -1.37215516,
         y: 0.0109641665,
@@ -85,31 +80,14 @@
   }
 </script>
 
-<style scoped>
-  .title {
-    font-family: monospace;
-  }
-  .top-span {
-    margin-top: 10px;
-  }
-  .bottom-span {
-    margin-bottom: 10px;
-  }
-  .fpanel {
-    width: 320px;
-    height: 110px;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 4px #eee;
-    border-radius: 3px;
-    padding: 2px;
-  }
-  .fpanel > input {
+<style>
+  .thumbnail > input {
     margin: 4px;
     width: 40px;
     padding: 2px;
     text-align: center;
   }
-  .fpanel > .info {
+  .thumbnail > .info {
     margin-left: 16px;
     font-family: monospace;
     font-size: 0.8em;
