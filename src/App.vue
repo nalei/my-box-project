@@ -38,7 +38,7 @@ export default {
   h1, h2 {
     font-weight: normal;
   }
-  .header {
+  .header h2{
     margin-top: 10px;
   }
   .navbar {

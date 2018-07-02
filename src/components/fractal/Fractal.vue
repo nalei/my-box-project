@@ -1,115 +1,117 @@
 <template>
-  <div id="app">
-    <div class="App">
-      <p class="App-intro">
-        <svg :width="svg.width" :height="svg.height" ref="svg">
-            <Pythagoras :w="baseW"
-                        :h="baseW"
-                        :heightFactor="heightFactor"
-                        :lean="lean"
-                        :x="svg.width / 2 - 40"
-                        :y="svg.height - baseW"
-                        :lvl="0"
-                        :maxlvl="currentMax"/>
-        </svg>
-      </p>
-  </div>
+  <div class="container">
+<!--
+    <fdraw-r class="bottom-span" :value="{ palette: 'wk' }"></fdraw-r>
+    <fdraw-r class="bottom-span"
+             :value="{ resolution: 20, palette: [{h:0,r:255,g:255,b:0},{h:1,r:0,g:0,b:0}] }">
+    </fdraw-r>
+-->
+    <div class="row">
+
+      <div class="title bottom-span">Tools:</div>
+      <div class="fpanel">
+        <input :value="params.width" @change="pushToImmutable('width', $event)" title="Width">
+        <span>&times;</span>
+        <input :value="params.height" @change="pushToImmutable('height', $event)" title="Height">
+        <span class="info"><b>{{ drawing }}</b></span>
+        <br/>
+        <input :value="params.resolution" @change="pushToImmutable('resolution', $event)" title="Resolution">
+        <select :value="selectedPalette" @change="selectPalette" title="Palette">
+          <option disabled value="custom">Select palette</option>
+          <option value="bw">b&amp;w</option>
+          <option value="wb">w&amp;b</option>
+          <option value="rb">rainbow</option>
+          <option value="wk">wiki</option>
+        </select>
+        <div class="info">x:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.x }}</div>
+        <div class="info">y:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.y}}</div>
+        <div class="info">zoom: {{ params.zoom }}</div>
+      </div>
+
+      <div class="title top-span">Color map:</div>
+      <fdraw-rw class="top-span" v-model="params" @progress="progress" @stat="stat=$event"></fdraw-rw>
+
+    </div>
   </div>
 </template>
 
 <script>
-import { select as d3select, mouse as d3mouse } from 'd3-selection'
-import { scaleLinear } from 'd3-scale'
-import Pythagoras from '@/utilities/Pythagoras'
-
-const throttleWithRAF = fn => {
-  let running = false
-  return function () {
-    if (running) return
-    running = true
-    const throttlerFn = 'requestIdleCallback' in window ? window.requestIdleCallback : window.requestAnimationFrame
-    throttlerFn(() => {
-      fn.apply(this, arguments)
-      running = false
-    })
-  }
-}
-
-const realMax = 11
-
-export default {
-  name: 'Fractal',
-
-  components: { Pythagoras },
-
-  data () {
-    return {
-      svg: {
-        width: 1200,
-        height: 500
+  import FdrawR from '@/fdraw/components/FdrawR'
+  import FdrawRw from '@/fdraw/components/FdrawRw'
+  import getColor from '@/fdraw/services/getColor'
+  export default {
+    components: { FdrawR, FdrawRw },
+    data: () => ({
+      params: {
+        width: 750,
+        height: 440,
+        x: -1.37215516,
+        y: 0.0109641665,
+        zoom: 498788,
+        resolution: 300,
+        palette: getColor.wk
       },
-      currentMax: 0,
-      baseW: 80,
-      heightFactor: 0,
-      lean: 0
-    }
-  },
-
-  mounted () {
-    d3select(this.$refs.svg).on('mousemove', this.onMouseMove)
-    this.next()
-  },
-
-  methods: {
-    next () {
-      if (this.currentMax < realMax) {
-        this.currentMax += 1
-        setTimeout(this.next, 500)
+      drawing: '',
+      stat: [],
+      palette: getColor.wk
+    }),
+    computed: {
+      selectedPalette () {
+        switch (this.params.palette) {
+          case getColor.bw: return 'bw'
+          case getColor.wb: return 'wb'
+          case getColor.rb: return 'rb'
+          case getColor.wk: return 'wk'
+          default: return 'custom'
+        }
       }
     },
-
-    onMouseMove () {
-      const [x, y] = d3mouse(this.$refs.svg)
-      this.update(x, y)
-    },
-
-    update: throttleWithRAF(function (x, y) {
-      const scaleFactor = scaleLinear()
-        .domain([this.svg.height, 0])
-        .range([0, 0.8])
-      const scaleLean = scaleLinear()
-        .domain([0, this.svg.width / 2, this.svg.width])
-        .range([0.5, 0, -0.5])
-      this.heightFactor = scaleFactor(y)
-      this.lean = scaleLean(x)
-    })
+    methods: {
+      selectPalette (event) {
+        const palette = getColor[event.target.value]
+        this.params = { ...this.params, palette }
+        this.palette = palette
+      },
+      pushToImmutable (key, event) {
+        const n = +event.target.value
+        if (!isNaN(n) && n > 0) {
+          this.params = { ...this.params, [key]: n }
+        }
+      },
+      progress (event) {
+        this.drawing = event ? 'Drawing...' : '[+] [-] drag pinch'
+      }
+    }
   }
-}
 </script>
 
-<style>
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+<style scoped>
+  .title {
+    font-family: monospace;
+  }
+  .top-span {
+    margin-top: 10px;
+  }
+  .bottom-span {
+    margin-bottom: 10px;
+  }
+  .fpanel {
+    width: 320px;
+    height: 110px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 4px #eee;
+    border-radius: 3px;
+    padding: 2px;
+  }
+  .fpanel > input {
+    margin: 4px;
+    width: 40px;
+    padding: 2px;
+    text-align: center;
+  }
+  .fpanel > .info {
+    margin-left: 16px;
+    font-family: monospace;
+    font-size: 0.8em;
+  }
 </style>
