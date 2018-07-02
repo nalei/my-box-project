@@ -1,6 +1,6 @@
 <template>
   <div class="media">
-    <div v-if="item.thumbnail != 'default'" class="media-left">
+    <div v-if="(item.thumbnail != 'default') && (item.thumbnail != 'self')" class="media-left">
       <a :href="item.url">
         <img class="media-object" :src="item.thumbnail">
       </a>
