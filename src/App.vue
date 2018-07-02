@@ -43,7 +43,7 @@ export default {
     margin-top: 20px;
   }
   .navbar {
-    min-height: 41px;
+    min-height: 41px !important;
   }
   .navbar-nav { 
     margin: 0 -15px;
