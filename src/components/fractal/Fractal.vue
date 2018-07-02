@@ -8,7 +8,7 @@
 -->
     <div class="row">
 
-      <div class="title bottom-span">Tools:</div>
+      <h4>Tools:</h4>
       <div class="fpanel">
         <input :value="params.width" @change="pushToImmutable('width', $event)" title="Width">
         <span>&times;</span>
@@ -28,8 +28,8 @@
         <div class="info">zoom: {{ params.zoom }}</div>
       </div>
 
-      <div class="title top-span">Color map:</div>
-      <fdraw-rw class="top-span" v-model="params" @progress="progress" @stat="stat=$event"></fdraw-rw>
+      <h4>Color map:</h4>
+      <fdraw-rw v-model="params" @progress="progress" @stat="stat=$event"></fdraw-rw>
 
     </div>
   </div>
