@@ -39,7 +39,7 @@ export default {
     font-weight: normal;
   }
   .header {
-    margin: 10px 0 20px;
+    margin-top: 10px;
   }
   .navbar {
     min-height: 41px;
