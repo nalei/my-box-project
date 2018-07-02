@@ -1,5 +1,5 @@
 <template>  
-  <div>
+  <div class="container">
 
     <div class="text-center" v-show="loading">
         Loading...
@@ -15,7 +15,7 @@
 <script>
 import Postlist from './Postlist'
 import Pagination from './Pagination'
-import getArraySection from '../utilities/get-array-section'
+import getArraySection from '@/utilities/get-array-section'
 import {mapGetters, mapActions} from 'vuex'
 
 export default {

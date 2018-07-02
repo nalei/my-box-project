@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import timeConverter from '../utilities/time-converter'
+import timeConverter from '@/utilities/time-converter'
 
 export default {
   name: 'Post',

@@ -1,7 +1,7 @@
 export default {
 
   SET_ITEMS: (state, items) => {
-    state.posts = state.posts.concat(items)
+    state.posts = items
     state.postsLoading = false
   }
 

@@ -20,6 +20,11 @@ export default {
   .post {
     padding: 20px;
   }
+  @media (min-width: 768px) {
+    .post {
+      padding: 20px 0;
+    }
+  }
   .fade-enter-active, .fade-leave-active {
       transition: all .15s ease;
   }

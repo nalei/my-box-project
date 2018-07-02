@@ -1,7 +1,17 @@
 <template>
-  <main  class="container">
+  <main>
     <div class="header clearfix text-center">
-      <h2><img src="./assets/logo.png" width=35> Тестовое задание frontend разработчика</h2>
+      <h2><img src="./assets/logo.png" width=35> Тестовое задание frontend разработчика</h2>	
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <router-link tag="li" to="/" exact><a>Фрактал Julia</a></router-link>
+              <router-link tag="li" to="/Reddit" exact><a>Reddit здесь!</a></router-link>
+            </ul>
+          </div><!-- /.row -->
+        </div><!-- /.container -->
+      </nav>
     </div>
     
     <router-view></router-view>
@@ -30,5 +40,17 @@ export default {
   }
   .header {
     margin: 10px 0 20px;
+  }
+  .navbar {
+    min-height: 41px;
+  }
+  .navbar-nav { 
+    margin: 0 -15px;
+  }
+  @media (min-width: 768px) {
+    .navbar-nav > li > a {
+        padding-top: 10px;
+        padding-bottom: 9px;
+    }
   }
 </style>
