@@ -53,15 +53,15 @@
       params: {
         width: 339,
         height: 440,
-        x: -1.37215516,
-        y: 0.0109641665,
+        x: -1.37147751,
+        y: 0.0119625866,
         zoom: 498788,
-        resolution: 300,
-        palette: getColor.wk
+        resolution: 600,
+        palette: getColor.bw
       },
       drawing: '',
       stat: [],
-      palette: getColor.wk,
+      palette: getColor.bw,
     }),
     mounted () {
       // ToDo: сделать метод для ресайза
