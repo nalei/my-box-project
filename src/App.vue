@@ -46,7 +46,7 @@ export default {
     min-height: 41px !important;
   }
   .navbar-nav { 
-    margin: 0 -15px;
+    margin: 0 -15px !important;
   }
   .navbar-nav > li {
     float: left;
