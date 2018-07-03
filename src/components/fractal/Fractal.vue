@@ -64,6 +64,7 @@
       palette: getColor.wk,
     }),
     mounted () {
+      // ToDo: сделать метод для ресайза
       let element = document.getElementById('canvasContainer')
       let n = element.clientWidth - 36
       if (!isNaN(n) && n > 0) {
