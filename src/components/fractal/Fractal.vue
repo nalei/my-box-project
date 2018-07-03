@@ -1,26 +1,38 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8 color-map" id="canvasContainer">
         <h4>Color map:</h4>
+        <span class="info"><b>{{ drawing }}</b></span>
         <fdraw-rw v-model="params" @progress="progress" @stat="stat=$event"></fdraw-rw>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4 tools">
         <h4>Tools:</h4>
         <div class="thumbnail">
-          <input :value="params.width" @change="pushToImmutable('width', $event)" title="Width">
-          <span>&times;</span>
-          <input :value="params.height" @change="pushToImmutable('height', $event)" title="Height">
-          <span class="info"><b>{{ drawing }}</b></span>
-          <br/>
-          <input :value="params.resolution" @change="pushToImmutable('resolution', $event)" title="Resolution">
-          <select :value="selectedPalette" @change="selectPalette" title="Palette">
-            <option disabled value="custom">Select palette</option>
-            <option value="bw">b&amp;w</option>
-            <option value="wb">w&amp;b</option>
-            <option value="rb">rainbow</option>
-            <option value="wk">wiki</option>
-          </select>
+          <div class="form-group">
+            <label class="control-label info">Размер:</label>
+            <div class="value">
+              <input :value="params.width" @input="pushToImmutable('width', $event)" title="Width" disabled>
+              <span>&times;</span>
+              <input :value="params.height" @change="pushToImmutable('height', $event)" title="Height" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label info">Итераций:</label>
+            <input :value="params.resolution" @change="pushToImmutable('resolution', $event)" title="Resolution">
+          </div>
+          <div class="form-group">
+            <label class="control-label info">Палитра:</label>
+            <div class="value">
+              <select :value="selectedPalette" @change="selectPalette" title="Palette">
+                <option disabled value="custom">Select palette</option>
+                <option value="bw">b&amp;w</option>
+                <option value="wb">w&amp;b</option>
+                <option value="rb">rainbow</option>
+                <option value="wk">wiki</option>
+              </select>
+            </div>
+          </div>
           <div class="info">x:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.x }}</div>
           <div class="info">y:&nbsp;&nbsp;&nbsp;&nbsp;{{ params.y}}</div>
           <div class="info">zoom: {{ params.zoom }}</div>
@@ -34,11 +46,12 @@
   import FdrawR from '@/fdraw/components/FdrawR'
   import FdrawRw from '@/fdraw/components/FdrawRw'
   import getColor from '@/fdraw/services/getColor'
+  import resizeSensor from '@/utilities/resize-sensor'
   export default {
     components: { FdrawR, FdrawRw },
     data: () => ({
       params: {
-        width: 340,
+        width: 339,
         height: 440,
         x: -1.37215516,
         y: 0.0109641665,
@@ -48,8 +61,21 @@
       },
       drawing: '',
       stat: [],
-      palette: getColor.wk
+      palette: getColor.wk,
     }),
+    mounted () {
+      let element = document.getElementById('canvasContainer')
+      let n = element.clientWidth - 36
+      if (!isNaN(n) && n > 0) {
+          this.params = { ...this.params, ['width']: n }
+      }
+      new ResizeSensor(element, () => {
+        n = element.clientWidth - 36
+        if (!isNaN(n) && n > 0) {
+          this.params = { ...this.params, ['width']: n }
+        }
+      })
+    },
     computed: {
       selectedPalette () {
         switch (this.params.palette) {
@@ -74,21 +100,38 @@
         }
       },
       progress (event) {
-        this.drawing = event ? 'Drawing...' : '[+] [-] drag pinch'
+        this.drawing = event ? 'Drawing...' : 'Перетаскивание, [+] [-] для изменения масштаба'
       }
     }
   }
 </script>
 
 <style>
-  .thumbnail > input {
+  .color-map h4 {
+    margin-bottom: 0;
+    margin-left: 4px;
+  }
+  .color-map .info {
+    margin-left: 15px;
+  }
+  .tools h4 {
+    margin-bottom: 19px;
+    margin-left: 4px;
+  }
+  .tools .thumbnail {
+    padding: 10px;
+  }
+  .tools label {
+    width: 65px;
+    /* float: left; */
+  }
+  .tools input {
     margin: 4px;
-    width: 40px;
+    width: 42px;
     padding: 2px;
     text-align: center;
   }
-  .thumbnail > .info {
-    margin-left: 16px;
+  .info {
     font-family: monospace;
     font-size: 0.8em;
   }

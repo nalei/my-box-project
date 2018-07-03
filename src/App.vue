@@ -9,7 +9,7 @@
       <div class="container">
         <ul class="nav navbar-nav text-center">
           <router-link tag="li" to="/" exact><a>Фрактал Julia</a></router-link>
-          <router-link tag="li" to="/Reddit" exact><a>Reddit здесь!</a></router-link>
+          <router-link tag="li" to="/reddit" exact><a>Reddit здесь!</a></router-link>
         </ul>
       </div><!-- /.container -->
     </nav>
