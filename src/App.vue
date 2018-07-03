@@ -1,56 +1,28 @@
 <template>
-  <main  class="container">
-    <div class="header clearfix text-center">
-      <h2><img src="./assets/logo.png" width=35> Тестовое задание frontend разработчика</h2>
-    </div>
-
-    <div class="text-center" v-show="loading">
-        Loading...
-    </div>
-
-    <Pagination v-model="page" :items="posts.length" :perPage="10" />
-    <Postlist :page="page" :posts="pageOfPosts" /> <!-- Биндим только часть массива, для пагинации -->
-    <Pagination v-model="page" :items="posts.length" :perPage="10" />
+  <main>
+    <div class="container">
+      <div class="header clearfix text-center">
+        <h2><img src="./assets/logo.png" width=35> Тестовое задание frontend разработчика</h2>
+      </div>
+    </div><!-- /.container -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav text-center">
+          <router-link tag="li" to="/" exact><a>Фрактал Julia</a></router-link>
+          <router-link tag="li" to="/reddit" exact><a>Reddit здесь!</a></router-link>
+        </ul>
+      </div><!-- /.container -->
+    </nav>
+    
+    <router-view></router-view>
 
   </main>
 </template>
 
 <script>
-import Postlist from './components/Postlist'
-import Pagination from './components/Pagination'
-import getArraySection from './utilities/get-array-section'
-import {mapGetters, mapActions} from 'vuex'
 
 export default {
-  name: 'app',
-  components: { Postlist, Pagination },
-  data () {
-    return { 
-      subReddit: 'all', // Категория новостей Reddit
-      page: 1           // Начальная страница, для пагинации
-    } 
-  },
-  methods: {
-    ...mapActions({
-      fetchItems: 'FETCH_ITEMS' // Запрос новостей Reddit
-    })
-  },
-  computed: {
-    ...mapGetters({
-      'posts': 'posts',    // Массив новостей Reddit
-      'loading': 'loading' // Состояние закрузки
-    }),
-
-    // Возвращает часть массива, для пагинации
-    pageOfPosts () {
-      return getArraySection(this.posts, this.page, 10)  //ToDo: Перенести пагинацию в VUEX
-    }
-  },
-  created () {
-    // Получает топ 30 новостей Reddit, и записывает в posts
-    // subReddit == 'all'
-    this.fetchItems(this.subReddit)
-  }
+  name: 'app'
 }
 </script>
 
@@ -66,13 +38,31 @@ export default {
   h1, h2 {
     font-weight: normal;
   }
-  .header {
-    margin: 10px 0 20px;
+  .header h2{
+    margin-top: 20px;
+    margin-top: 20px;
   }
-  .fade-enter-active, .fade-leave-active {
-      transition: all .2s ease;
+  .navbar {
+    min-height: 41px !important;
   }
-  .fade-enter, .fade-leave-active {
-      opacity: 0;
+  .navbar-nav { 
+    margin: 0 -15px !important;
+  }
+  .navbar-nav > li {
+    float: left;
+    width: 50%;
+  }
+  .navbar-nav > li > a {
+    padding-top: 10px !important;
+    padding-bottom: 9px !important;
+  }
+  @media (min-width: 768px) {
+    .navbar-nav > li {
+      width: auto;
+    }
+    .navbar-nav > li > a {
+      padding-top: 10px !important;
+      padding-bottom: 9px !important;
+    }
   }
 </style>
