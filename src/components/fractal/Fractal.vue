@@ -2,10 +2,6 @@
   <div class="container">
     <div class="row">
 
-      <!-- <fdraw-r
-              :value="{ resolution: 20, palette: [{h:0,r:255,g:255,b:0},{h:1,r:0,g:0,b:0}] }">
-      </fdraw-r>  -->
-
       <div class="col-md-8 color-map" id="canvasContainer">
         <h4>Color map:</h4>
         <span class="info"><b>{{ drawing }}</b></span>
@@ -58,15 +54,15 @@
       params: {
         width: 339,
         height: 440,
-        x: 0.1378316993538577,
-        y: 0.5166841491328635,
-        zoom: 29192,
+        x: 0.1382337141429088,
+        y: 0.5170517061830592,
+        zoom: 1122238.5468749993,
         resolution: 170,
-        palette: getColor.bw
+        palette: getColor.wb
       },
       drawing: '',
       stat: [],
-      palette: getColor.bw,
+      palette: getColor.wb,
     }),
     mounted () {
       // ToDo: сделать метод для ресайза
