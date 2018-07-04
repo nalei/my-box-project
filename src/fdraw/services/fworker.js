@@ -24,7 +24,7 @@ self.onmessage = (e) => {
     for (let i = 0; i < width; i++) {
       const ii = 4 * (j * width + i)
       const cPoint = mapPoint(i - halfWidth, j - halfHeight, params)
-      const nIter = iterations.mandelbrot(cPoint, maxIter)
+      const nIter = iterations.julia(cPoint, maxIter)
       const h = nIter / maxIter
       const c = fcolor(h)
       const n = Math.floor((N - 1) * h)

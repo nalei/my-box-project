@@ -1,6 +1,11 @@
 <template>
   <div class="container">
     <div class="row">
+
+      <!-- <fdraw-r
+              :value="{ resolution: 20, palette: [{h:0,r:255,g:255,b:0},{h:1,r:0,g:0,b:0}] }">
+      </fdraw-r>  -->
+
       <div class="col-md-8 color-map" id="canvasContainer">
         <h4>Color map:</h4>
         <span class="info"><b>{{ drawing }}</b></span>
@@ -53,10 +58,10 @@
       params: {
         width: 339,
         height: 440,
-        x: -1.37147751,
-        y: 0.0119625866,
-        zoom: 498788,
-        resolution: 600,
+        x: 0.1378316993538577,
+        y: 0.5166841491328635,
+        zoom: 29192,
+        resolution: 170,
         palette: getColor.bw
       },
       drawing: '',
@@ -108,6 +113,9 @@
 </script>
 
 <style>
+  .color-map {
+    margin-bottom: 20px;
+  }
   .color-map h4 {
     margin-bottom: 0;
     margin-left: 4px;
